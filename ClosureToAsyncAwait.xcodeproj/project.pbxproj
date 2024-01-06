@@ -13,6 +13,8 @@
 		48AB962F2B16550600BDDC39 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 48AB962D2B16550600BDDC39 /* Main.storyboard */; };
 		48AB96312B16550800BDDC39 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 48AB96302B16550800BDDC39 /* Assets.xcassets */; };
 		48AB96342B16550800BDDC39 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 48AB96322B16550800BDDC39 /* LaunchScreen.storyboard */; };
+		48E8DC622B499ACF0003A4BB /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48E8DC612B499ACF0003A4BB /* UserModel.swift */; };
+		48E8DC642B499B3E0003A4BB /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48E8DC632B499B3E0003A4BB /* WebService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,8 @@
 		48AB96302B16550800BDDC39 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		48AB96332B16550800BDDC39 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		48AB96352B16550800BDDC39 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		48E8DC612B499ACF0003A4BB /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		48E8DC632B499B3E0003A4BB /* WebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,7 +62,9 @@
 			children = (
 				48AB96272B16550600BDDC39 /* AppDelegate.swift */,
 				48AB96292B16550600BDDC39 /* SceneDelegate.swift */,
+				48E8DC632B499B3E0003A4BB /* WebService.swift */,
 				48AB962B2B16550600BDDC39 /* ViewController.swift */,
+				48E8DC612B499ACF0003A4BB /* UserModel.swift */,
 				48AB962D2B16550600BDDC39 /* Main.storyboard */,
 				48AB96302B16550800BDDC39 /* Assets.xcassets */,
 				48AB96322B16550800BDDC39 /* LaunchScreen.storyboard */,
@@ -141,6 +147,8 @@
 				48AB962C2B16550600BDDC39 /* ViewController.swift in Sources */,
 				48AB96282B16550600BDDC39 /* AppDelegate.swift in Sources */,
 				48AB962A2B16550600BDDC39 /* SceneDelegate.swift in Sources */,
+				48E8DC642B499B3E0003A4BB /* WebService.swift in Sources */,
+				48E8DC622B499ACF0003A4BB /* UserModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
