@@ -12,7 +12,7 @@ final class WebService {
     // MARK: API call Using closure (escaping closure)
     
     static func fetchUserData(completion: @escaping ([UserModel], UserError?) -> Void) {
-        let urlString = ""
+        let urlString = "https://api.github.com/users"
         guard let url = URL(string: urlString) else {
             completion([], UserError.invalidURL)
             return
