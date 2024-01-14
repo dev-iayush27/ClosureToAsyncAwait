@@ -51,10 +51,25 @@ class ViewController: UIViewController {
                     self.tableview.reloadData()
                 }
             } catch(let error) {
-                let userError = UserError.custom(error: error)
-                print(userError.errorDescription ?? "Error Found")
+                await MainActor.run {
+                    if let err = error as? UserError {
+                        self.displayAlert(message: err.errorDescription ?? "Unknown error")
+                    } else {
+                        self.displayAlert(message: error.localizedDescription)
+                    }
+                }
             }
         }
+    }
+    
+    private func displayAlert(title: String = "Error!", message: String?) {
+        let alert = UIAlertController(
+            title: title,
+            message: message,
+            preferredStyle: .alert
+        )
+        alert.addAction(UIAlertAction(title: "Ok", style: .default))
+        self.present(alert, animated: true)
     }
 }
 
