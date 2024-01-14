@@ -24,39 +24,18 @@ class ViewController: UIViewController {
     
     // MARK: API call Using closure (escaping closure)
     
-    //    private func getUserData() {
-    //        WebService.fetchUserData { [weak self] result, error in
-    //            if let error = error {
-    //                print(error.errorDescription ?? "Error Found")
-    //            } else {
-    //                self?.users = result
-    //                print(self?.users ?? [])
-    //
-    //                DispatchQueue.main.async {
-    //                    self?.tableview.reloadData()
-    //                }
-    //            }
-    //        }
-    //    }
-    
-    // MARK: API call Using async/await
-    
     private func getUserData() {
-        Task {
-            do {
-                self.users = try await WebService.fetchUserData()
-                print(self.users)
-                
-                await MainActor.run {
-                    self.tableview.reloadData()
+        WebService.fetchUserData { [weak self] result, error in
+            if let error = error {
+                DispatchQueue.main.async {
+                    self?.displayAlert(message: error.errorDescription ?? "Error Found")
                 }
-            } catch(let error) {
-                await MainActor.run {
-                    if let err = error as? UserError {
-                        self.displayAlert(message: err.errorDescription ?? "Unknown error")
-                    } else {
-                        self.displayAlert(message: error.localizedDescription)
-                    }
+            } else {
+                self?.users = result
+                print(self?.users ?? [])
+                
+                DispatchQueue.main.async {
+                    self?.tableview.reloadData()
                 }
             }
         }

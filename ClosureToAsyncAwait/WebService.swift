@@ -11,55 +11,32 @@ final class WebService {
     
     // MARK: API call Using closure (escaping closure)
     
-    //    static func fetchUserData(completion: @escaping ([UserModel], UserError?) -> Void) {
-    //        let urlString = "https://api.github.com/users"
-    //        guard let url = URL(string: urlString) else {
-    //            completion([], UserError.invalidURL)
-    //            return
-    //        }
-    //
-    //        let task = URLSession.shared.dataTask(with: url) { data, response, error in
-    //            guard let response = response as? HTTPURLResponse,
-    //                  response.statusCode == 200 else {
-    //                completion([], UserError.invalidResponse)
-    //                return
-    //            }
-    //
-    //            do {
-    //                if let data = data {
-    //                    let result = try JSONDecoder().decode([UserModel].self, from: data)
-    //                    completion(result, nil)
-    //                } else {
-    //                    completion([], UserError.invalidData)
-    //                }
-    //            } catch {
-    //                completion([], UserError.invalidData)
-    //            }
-    //        }
-    //        task.resume()
-    //    }
-    
-    // MARK: API call Using async/await
-    
-    static func fetchUserData() async throws -> [UserModel] {
-        let urlString = "https://api.github.com/users"
+    static func fetchUserData(completion: @escaping ([UserModel], UserError?) -> Void) {
+        let urlString = ""
         guard let url = URL(string: urlString) else {
-            throw UserError.invalidURL
+            completion([], UserError.invalidURL)
+            return
         }
         
-        let (data, response) = try await URLSession.shared.data(from: url)
-        
-        guard let response = response as? HTTPURLResponse,
-              response.statusCode == 200 else {
-            throw UserError.invalidResponse
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+            guard let response = response as? HTTPURLResponse,
+                  response.statusCode == 200 else {
+                completion([], UserError.invalidResponse)
+                return
+            }
+            
+            do {
+                if let data = data {
+                    let result = try JSONDecoder().decode([UserModel].self, from: data)
+                    completion(result, nil)
+                } else {
+                    completion([], UserError.invalidData)
+                }
+            } catch {
+                completion([], UserError.invalidData)
+            }
         }
-        
-        do {
-            let decoder = JSONDecoder()
-            return try decoder.decode([UserModel].self, from: data)
-        } catch {
-            throw UserError.invalidData
-        }
+        task.resume()
     }
 }
 
