@@ -19,42 +19,29 @@ final class WebService {
         }
         
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error {
+                completion([], UserError.description(error: error))
+                return
+            }
+            
             guard let response = response as? HTTPURLResponse,
                   response.statusCode == 200 else {
                 completion([], UserError.invalidResponse)
                 return
             }
             
-            do {
-                if let data = data {
-                    let result = try JSONDecoder().decode([UserModel].self, from: data)
-                    completion(result, nil)
-                } else {
-                    completion([], UserError.invalidData)
-                }
-            } catch {
+            guard let data else {
                 completion([], UserError.invalidData)
+                return
+            }
+            
+            do {
+                let result = try JSONDecoder().decode([UserModel].self, from: data)
+                completion(result, nil)
+            } catch(let err) {
+                completion([], UserError.description(error: err))
             }
         }
         task.resume()
-    }
-}
-
-enum UserError: LocalizedError {
-    case invalidURL
-    case invalidResponse
-    case invalidData
-    
-    var errorDescription: String? {
-        switch self {
-        case .invalidURL:
-            return "Invalid URL"
-            
-        case .invalidResponse:
-            return "Invalid Response"
-            
-        case .invalidData:
-            return "Invalid data"
-        }
     }
 }
