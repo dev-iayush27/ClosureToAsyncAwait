@@ -44,4 +44,26 @@ final class WebService {
         }
         task.resume()
     }
+    
+    // MARK: API call Using async/await
+    
+    static func fetchUserData() async throws -> [UserModel] {
+        let urlString = "https://api.github.com/users"
+        guard let url = URL(string: urlString) else {
+            throw UserError.invalidURL
+        }
+        
+        let (data, response) = try await URLSession.shared.data(from: url)
+        
+        guard let response = response as? HTTPURLResponse,
+              response.statusCode == 200 else {
+            throw UserError.invalidResponse
+        }
+        
+        do {
+            return try JSONDecoder().decode([UserModel].self, from: data)
+        } catch(let error) {
+            throw UserError.dynamicError(error: error)
+        }
+    }
 }

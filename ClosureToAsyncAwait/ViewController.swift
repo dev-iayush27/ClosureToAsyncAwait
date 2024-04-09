@@ -19,7 +19,11 @@ class ViewController: UIViewController {
         self.tableview.dataSource = self
         self.tableview.delegate = self
         
-        self.callUserDataAPI()
+//        self.callUserDataAPI()
+        
+        Task {
+            await callUserDataAPIAsyncAwait()
+        }
     }
     
     // MARK: API call Using closure (escaping closure)
@@ -37,6 +41,23 @@ class ViewController: UIViewController {
                 DispatchQueue.main.async {
                     self?.tableview.reloadData()
                 }
+            }
+        }
+    }
+    
+    // MARK: API call Using async/await
+    
+    private func callUserDataAPIAsyncAwait() async {
+        do {
+            let response = try await WebService.fetchUserData()
+            self.users = response
+            await MainActor.run {
+                self.tableview.reloadData()
+            }
+        } catch(let error) {
+            await MainActor.run {
+                let err = error as? UserError
+                displayAlert(message: err?.errorDescription)
             }
         }
     }
