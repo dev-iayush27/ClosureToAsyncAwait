@@ -26,7 +26,7 @@ class ViewController: UIViewController {
     
     private func callUserDataAPI() {
         WebService.fetchUserData { [weak self] result, error in
-            if let error = error {
+            if let error {
                 DispatchQueue.main.async {
                     self?.displayAlert(message: error.errorDescription ?? "Error Found")
                 }
