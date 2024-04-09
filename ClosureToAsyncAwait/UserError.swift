@@ -11,7 +11,7 @@ enum UserError: LocalizedError {
     case invalidURL
     case invalidResponse
     case invalidData
-    case description(error: Error)
+    case dynamicError(error: Error)
     
     var errorDescription: String? {
         switch self {
@@ -24,7 +24,7 @@ enum UserError: LocalizedError {
         case .invalidData:
             return "Invalid data"
             
-        case .description(error: let error):
+        case .dynamicError(error: let error):
             return error.localizedDescription
         }
     }

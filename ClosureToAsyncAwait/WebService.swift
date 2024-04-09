@@ -20,7 +20,7 @@ final class WebService {
         
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
             if let error {
-                completion([], UserError.description(error: error))
+                completion([], UserError.dynamicError(error: error))
                 return
             }
             
@@ -39,7 +39,7 @@ final class WebService {
                 let result = try JSONDecoder().decode([UserModel].self, from: data)
                 completion(result, nil)
             } catch(let err) {
-                completion([], UserError.description(error: err))
+                completion([], UserError.dynamicError(error: err))
             }
         }
         task.resume()
