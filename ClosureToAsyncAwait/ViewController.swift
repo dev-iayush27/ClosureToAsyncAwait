@@ -19,12 +19,12 @@ class ViewController: UIViewController {
         self.tableview.dataSource = self
         self.tableview.delegate = self
         
-        getUserData()
+        self.callUserDataAPI()
     }
     
     // MARK: API call Using closure (escaping closure)
     
-    private func getUserData() {
+    private func callUserDataAPI() {
         WebService.fetchUserData { [weak self] result, error in
             if let error = error {
                 DispatchQueue.main.async {
